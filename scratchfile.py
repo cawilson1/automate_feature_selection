@@ -9,6 +9,8 @@ file for testing code
 
 import pandas as pd
 import numpy as np
+from sklearn import svm
+from sklearn.model_selection import cross_val_score
 
 def readFile(_inputColNums, _outputColNums, relativeFilename):
     inputData = pd.read_csv(relativeFilename,
@@ -28,18 +30,42 @@ def readFile(_inputColNums, _outputColNums, relativeFilename):
 
         tempAllX[:, index] = (tempAllX[:, index] - avgOfX)/(np.max(tempAllX[:, index] - np.min(tempAllX[:, index])))
  
+    #only use a subset for speed reasons
     return tempAllX, np.array(outputData, dtype="float"), inputData.head(0).columns.values
+   # return tempAllX[:100], np.array(outputData, dtype="float")[:100], inputData.head(0).columns.values
 
 
 def main():
     filename = "./datasets/kc_house_data/kc_house_data.csv"
-    X, y, features = readFile([0,3,4,5],[2],filename)
-    #0-100,000 cheap
-    #100,001-250,000 average
-    #250,001-500,000 pricey
-    #500,001-1,000,000 expensive
-    #1,000,001 - 5,000,000 very expensive
-    #5,000,000+ cray
+    X, y, features = readFile([8,11,12,13,14,17],[2],filename)
+
+    y = pd.read_csv('./datasets/kc_house_data/kc_house_data_y_classification_3_class.csv',
+                    sep=',',
+                    usecols=[0],
+                    header=0)
+    
+    
+    y = np.array(y)
+    y = y.reshape(len(y),)#reshape so svm doesn't complain
+   
+    clf = svm.SVC(gamma='auto',kernel='rbf', decision_function_shape='ovo')#use decision_function_shape arg when using multiclass
+   # clf.fit(X,y)
+    
+    # print(clf.predict([[1,1,1,1]]))
+   # row = 1149#min7252#max
+    #row = 7252
+    #row = 156
+    scores = cross_val_score(clf, X, y, cv=5)
+    print(scores)
+    print(scores.mean())
+   # print(clf.predict([[X[row][0],X[row][1],X[row][2],X[row][3],X[row][4],X[row][5]]])) 
+   
+    print(features)
+    
+    
+    
+    
+'''
     
     classList = []
     
@@ -47,25 +73,19 @@ def main():
         if y[i] <0:
             print('breaking')
             break
-        elif y[i] < 100000:
-            classList.append('cheap')
-        elif y[i] < 250000:
+        elif y[i] < 300000:
             classList.append('average')
-        elif y[i] < 500000:
+        elif y[i] < 800000:
             classList.append('pricey')
-        elif y[i] < 1000000:
-            classList.append('expensive')
-        elif y[i] < 5000000:
-            classList.append('v_expensive')
         else:
-            classList.append('cray')
+            classList.append('expensive')
         
     print(classList[0])
     dataDict = {'price_class': classList}
     
     df = pd.DataFrame(data=dataDict)
-    df.to_csv('./datasets/kc_house_data/kc_house_data_y_classification.csv',encoding='utf-8',index=False)
+    df.to_csv('./datasets/kc_house_data/kc_house_data_y_classification_3_class.csv',encoding='utf-8',index=False)
     
-    print(features)
     
+    '''
 main()

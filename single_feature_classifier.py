@@ -5,7 +5,7 @@ Created on Mon Nov 12 10:59:32 2018
 @author: Casey
 """
 
-from Week07Lecture01ascaled import readFile
+from process_data import readFile
 from sklearn import linear_model
 from sklearn.model_selection import cross_val_score
 

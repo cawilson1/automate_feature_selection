@@ -4,7 +4,7 @@ Created on Mon Nov 12 11:12:03 2018
 
 @author: Casey
 """
-from Week07Lecture01ascaled import readFile
+from process_data import readFile
 from sklearn import linear_model
 from sklearn.model_selection import cross_val_score
 from itertools import chain
@@ -26,12 +26,10 @@ def recursiveElim(startingFeatures,optimalSetSize):
         
         allX, allY, features = readFile(tempFeatures, [2])                           
         non,non2,nonFeatures = readFile([startingFeatures[index]],[2])
-        myModel = linear_model.LinearRegression()
-        myModel.fit(allX, allY)
-        scores = cross_val_score(myModel,allX,allY,scoring='neg_mean_squared_error',cv=10,)
+        scores = getModelScores('lin_reg',allX,allY,10)
         print('error for this set of features',scores.mean())
         featureScores.append([scores.mean(),nonFeatures[0],startingFeatures[index]])
-    sortedList = sorted(featureScores, reverse=False)
+    sortedList = sorted(featureScores, reverse=False)#make boolean ifMaximizing
     print('\n\n\neliminate feature',(sortedList[-1][1]),'\n\n')
     sortedList = sortedList[:-1]#remove the worst performing feature
     startingFeatures = []#reset list for next recursion round
@@ -43,9 +41,20 @@ def recursiveElim(startingFeatures,optimalSetSize):
     
     startingFeatures = recursiveElim(startingFeatures,optimalSetSize)
     return startingFeatures
-   
-def specifyDataset(dataset, featuresList):#if featuresList is empty, by default start with all features specified in dataset
+
+def getModelScores(mlAlgorithm,X,y,folds):
+    if mlAlgorithm == 'lin_reg':
+        myModel = linear_model.LinearRegression()#here call a function that specifies ml model
+        return cross_val_score(myModel,X,y,scoring='neg_mean_squared_error',cv=folds)
+        
+    else:
+        print('no match for ML algorithm')
+        return 0
     
+    
+def specifyDataset(dataset,X,y,numFeatures):#if featuresList is empty, by default start with all features specified in dataset
+    
+    #next create 2 functions in process_data, the current one called pickFeatures, and the new one called readAllColumns. Maybe later give arg option to choose starting set
     startingFeatures = [0,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]#all relevant features. 1 is date and 2 is price (the dependent var)
     allX, allY, features = readFile(startingFeatures, [2])                           
     myModel = linear_model.LinearRegression()
