@@ -22,6 +22,7 @@ def main():
     #for relevant options, specify number of features to stop at
     #add some normalization options and specify a default
     #ideally should have input validation
+    #consider having separate data processing and feature selection components
     if(input[1] == '-manual'):#the person wants to manually enter feature indeces. Probably not commonly recommended
         print('manual entry')
         for el in input[2:]:

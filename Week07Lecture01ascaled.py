@@ -7,9 +7,6 @@ Created on Mon Nov 12 10:23:12 2018
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import time
 
 def readFile(_inputColNums, _outputColNums):
     inputData = pd.read_csv("./datasets/kc_house_data/kc_house_data.csv",
@@ -22,7 +19,8 @@ def readFile(_inputColNums, _outputColNums):
                              header=0)
 
     tempAllX = np.array(inputData, dtype="float")
-    featureNames = []
+    
+    #minmax scaling
     for index in range(tempAllX.shape[1]):
         avgOfX = np.average(tempAllX[:, index])
 
