@@ -29,26 +29,29 @@ def main():
     #it may be interesting to allow for variables entered from the command line to be used as x an y as well
     if(input[1] == '-manual'):#the person wants to manually enter feature indeces. Probably not commonly recommended
         
+        mlAlg = input[2]
         
-        XFile = './datasets/' + input[2]
-        XFeatures = ast.literal_eval(input[3])
-        yFile = './datasets/' + input[4]
-        yFeature = ast.literal_eval(input[5])
+        XFile = './datasets/' + input[3]
+        XFeatures = ast.literal_eval(input[4])
+        yFile = './datasets/' + input[5]
+        yFeature = ast.literal_eval(input[6])
         
-        #for el in input[5:]:
-        #    featureIndexList.append(int(el))
-        #print('manual entry\n')
-        manually_choose_features.enterFeatureIndeces(XFeatures,yFeature,XFile,yFile)
+
+        manually_choose_features.enterFeatureIndeces(XFeatures,yFeature,XFile,yFile,mlAlg)
     elif(input[1] == '-sfc'):#single feature classifier
+        mlAlg = input[2]
+        checkMLAlg(mlAlg)
+        XFile = './datasets/' + input[3]
+        yFile = './datasets/' + input[4]
+        finalFeatureSetSize = input[5]#check that this is an int
         print('single feature classifier\n')
-        single_feature_classifier.specifyDataset('datasetname.csv',[])
+        single_feature_classifier.specifyDataset(XFile,yFile,mlAlg,finalFeatureSetSize)
     elif(input[1] == '-rfe'):
         
         mlAlg = input[2]
         checkMLAlg(mlAlg)
         XFile = './datasets/' + input[3]
         yFile = './datasets/' + input[4]
-        print(XFile, yFile)
         finalFeatureSetSize = input[5]#check that this is an int
         print('recursive feature elimination\n')
         recursive_feature_elimination.specifyDataset(XFile,yFile,mlAlg,finalFeatureSetSize)
