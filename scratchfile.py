@@ -9,9 +9,10 @@ file for testing code
 
 import pandas as pd
 import numpy as np
-from sklearn import svm
+from process_data import *
+from sklearn import svm,linear_model
 from sklearn.model_selection import cross_val_score
-
+'''
 def readFile(_inputColNums, _outputColNums, relativeFilename):
     inputData = pd.read_csv(relativeFilename,
                             sep=',',
@@ -34,8 +35,17 @@ def readFile(_inputColNums, _outputColNums, relativeFilename):
     return tempAllX, np.array(outputData, dtype="float"), inputData.head(0).columns.values
    # return tempAllX[:100], np.array(outputData, dtype="float")[:100], inputData.head(0).columns.values
 
-
+'''
 def main():
+    '''
+    X,y,features=readAllFeatures('./datasets/kc_house_data/kc_house_data_X.csv','./datasets/kc_house_data/kc_house_data_y_regression.csv')
+    print(features)
+    
+    myModel = linear_model.LinearRegression()
+    scores = cross_val_score(myModel,X,y,scoring='neg_mean_squared_error', cv=10)
+    print(scores.mean())#take the mean score of all cross val runs
+    print(features)'''
+    '''#svm run
     filename = "./datasets/kc_house_data/kc_house_data.csv"
     X, y, features = readFile([8,11,12,13,14,17],[2],filename)
 
@@ -63,7 +73,7 @@ def main():
     print(features)
     
     
-    
+    '''
     
 '''
     

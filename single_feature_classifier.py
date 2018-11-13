@@ -5,7 +5,7 @@ Created on Mon Nov 12 10:59:32 2018
 @author: Casey
 """
 
-from process_data import readFile
+from process_data import chooseFeatures
 from sklearn import linear_model
 from sklearn.model_selection import cross_val_score
 
@@ -15,7 +15,7 @@ def classifierForTopNFeatures(n,sortedFeatures):
     for i in range(n):
         topFeatureIndeces.append(sortedFeatures[i][2])
     print(topFeatureIndeces)
-    allX, allY, features = readFile(topFeatureIndeces, [2])
+    allX, allY, features = chooseFeatures(topFeatureIndeces, [2])
     myModel = linear_model.LinearRegression()
     myModel.fit(allX, allY)
     scores = cross_val_score(myModel,allX,allY,scoring='neg_mean_squared_error',cv=10)
@@ -25,11 +25,11 @@ def classifierForTopNFeatures(n,sortedFeatures):
     #when selecting top 6 features, they are 5,11,12,19,4,9. This is run above
     #code below replaces 12 from above with 10 (a worse performing individual feature) for an overall better score combined
     
-    allX, allY, features = readFile([5,11,10,19,4,9], [2])                              
+    allX, allY, features = chooseFeatures([5,11,10,19,4,9], [2])                              
     myModel = linear_model.LinearRegression()
     myModel.fit(allX, allY)
     scores = cross_val_score(myModel,allX,allY,scoring='neg_mean_squared_error',cv=10,)
-    print('error for not top 6 features',features,scores.mean())
+   # print('error for not top 6 features',features,scores.mean())
     
 
 def specifyDataset(dataset,featuresList):#if featuresList is empty, by default start with all features specified in dataset
@@ -37,7 +37,7 @@ def specifyDataset(dataset,featuresList):#if featuresList is empty, by default s
     emptyList = []
     for i in range(21):
         if i != 1 and i != 2:
-            allX,allY,features = readFile([i],[2])
+            allX,allY,features = chooseFeatures([i],[2])
             myModel = linear_model.LinearRegression()
             myModel.fit(allX, allY)
             scores = cross_val_score(myModel,allX,allY,scoring='neg_mean_squared_error',cv=10,)

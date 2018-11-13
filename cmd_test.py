@@ -6,6 +6,7 @@ Created on Mon Nov 12 10:11:34 2018
 file to test command line stuff
 """
 import sys
+import ast
 import manually_choose_features
 import single_feature_classifier
 import recursive_feature_elimination
@@ -14,7 +15,6 @@ def main():
     input = sys.argv
     #input[0] is file name
     
-    featureIndexList = []
     #later, specify model (i.e. regression) and data set.
     #if model is regression, specify feature index to compare
     #if model is classification, specify classes somehow, either manually, through a file, create dynamically, etc.
@@ -28,10 +28,17 @@ def main():
     #consider having separate data processing and feature selection components
     #it may be interesting to allow for variables entered from the command line to be used as x an y as well
     if(input[1] == '-manual'):#the person wants to manually enter feature indeces. Probably not commonly recommended
-        print('manual entry\n')
-        for el in input[2:]:
-            featureIndexList.append(int(el))
-        manually_choose_features.enterFeatureIndeces(featureIndexList)
+        
+        
+        XFile = './datasets/' + input[2]
+        XFeatures = ast.literal_eval(input[3])
+        yFile = './datasets/' + input[4]
+        yFeature = ast.literal_eval(input[5])
+        
+        #for el in input[5:]:
+        #    featureIndexList.append(int(el))
+        #print('manual entry\n')
+        manually_choose_features.enterFeatureIndeces(XFeatures,yFeature,XFile,yFile)
     elif(input[1] == '-sfc'):#single feature classifier
         print('single feature classifier\n')
         single_feature_classifier.specifyDataset('datasetname.csv',[])
@@ -39,15 +46,17 @@ def main():
         
         mlAlg = input[2]
         checkMLAlg(mlAlg)
-        X = './datasets/' + input[3]
-        y = './datasets/' + input[4]
-        print(X, y)
+        XFile = './datasets/' + input[3]
+        yFile = './datasets/' + input[4]
+        print(XFile, yFile)
         finalFeatureSetSize = input[5]#check that this is an int
         print('recursive feature elimination\n')
-        recursive_feature_elimination.specifyDataset('datasetname.csv',X,y,finalFeatureSetSize)
+        recursive_feature_elimination.specifyDataset(XFile,yFile,mlAlg,finalFeatureSetSize)
 
 def checkMLAlg(_mlAlg):
-    if _mlAlg == '-lin_reg':
+    if _mlAlg == 'lin_reg':
+        return
+    elif _mlAlg == 'svm':
         return
     
     else:
@@ -57,6 +66,7 @@ def checkMLAlg(_mlAlg):
 def printMLAlgOptions():
     print("Machine learning algorithms to choose from and their argument names:\n")
     print('linear regression:  \"lin_reg\"')
+    print('support vector machine: \"svm\"')
 
 if __name__=="__main__":
     main()
