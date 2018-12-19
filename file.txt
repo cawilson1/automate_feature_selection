@@ -1,0 +1,36 @@
+-135008644575.0 id 0
+-68534049209.1 sqft_living 3
+-133985153563.0 sqft_lot 4
+-126629771300.0 floors 5
+-125591129493.0 waterfront 6
+-113821657873.0 view 7
+-134923213677.0 condition 8
+-75012657043.0 grade 9
+-85632434623.6 sqft_above 10
+-121020768171.0 sqft_basement 11
+-134660022919.0 yr_built 12
+-132933487060.0 yr_renovated 13
+-134692679320.0 zipcode 14
+-122327186380.0 lat 15
+-135001644689.0 long 16
+-88919516232.8 sqft_living15 17
+-134149532537.0 sqft_lot15 18
+test
+newewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewew-135008644575.0 id 0
+-68534049209.1 sqft_living 3
+-133985153563.0 sqft_lot 4
+-126629771300.0 floors 5
+-125591129493.0 waterfront 6
+-113821657873.0 view 7
+-134923213677.0 condition 8
+-75012657043.0 grade 9
+-85632434623.6 sqft_above 10
+-121020768171.0 sqft_basement 11
+-134660022919.0 yr_built 12
+-132933487060.0 yr_renovated 13
+-134692679320.0 zipcode 14
+-122327186380.0 lat 15
+-135001644689.0 long 16
+-88919516232.8 sqft_living15 17
+-134149532537.0 sqft_lot15 18
+newewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewewnewew

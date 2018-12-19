@@ -9,6 +9,11 @@ import pandas as pd
 import numpy as np
 
 def readAllFeatures(XFile,yFile):
+    
+    #f = open("file.txt","a")
+    #f.write("\n" + XFile + ' ' + yFile + '\n')
+    #f.close
+ 
     inputData = pd.read_csv(XFile,
                             sep=',',
                             header=0)
@@ -17,7 +22,7 @@ def readAllFeatures(XFile,yFile):
                              header=0)
     
     tempAllX = np.array(inputData,dtype="float")
-    
+
         #minmax scaling
     for index in range(tempAllX.shape[1]):
         avgOfX = np.average(tempAllX[:, index])
