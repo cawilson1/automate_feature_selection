@@ -9,6 +9,7 @@ from run_ml_alg import getModelScores
 from sklearn import linear_model,svm
 from sklearn.model_selection import cross_val_score
 from itertools import chain
+import numpy as np
 
 def recursiveElim(startingFeatures,optimalSetSize,XFile,yFile,mlAlg):
     
@@ -23,6 +24,9 @@ def recursiveElim(startingFeatures,optimalSetSize,XFile,yFile,mlAlg):
         tempFeatures = [startingFeatures[0:index]]
         tempFeatures.append(startingFeatures[index+1:])
         tempFeatures = list(chain.from_iterable(tempFeatures))#remove nested list and present as all one list
+        
+       # tempFeatures = np.delete(startingFeatures,[index],1)#all features in current round minus one (i.e. remove a column)
+
         print(tempFeatures)
         
         allX, allY, features = chooseFeatures(tempFeatures,XFile,yFile)                           

@@ -37,10 +37,11 @@ def readFile(_inputColNums, _outputColNums, relativeFilename):
 
 '''
 def main():
-    '''
+   ''' 
     X,y,features=readAllFeatures('./datasets/kc_house_data/kc_house_data_X.csv','./datasets/kc_house_data/kc_house_data_y_regression.csv')
     print(features)
-    
+    '''
+    '''
     myModel = linear_model.LinearRegression()
     scores = cross_val_score(myModel,X,y,scoring='neg_mean_squared_error', cv=10)
     print(scores.mean())#take the mean score of all cross val runs
@@ -83,10 +84,10 @@ def main():
         if y[i] <0:
             print('breaking')
             break
-        elif y[i] < 300000:
+        elif y[i] < 500000:
             classList.append('average')
-        elif y[i] < 800000:
-            classList.append('pricey')
+        #elif y[i] < 800000:
+         #   classList.append('pricey')
         else:
             classList.append('expensive')
         
@@ -94,8 +95,8 @@ def main():
     dataDict = {'price_class': classList}
     
     df = pd.DataFrame(data=dataDict)
-    df.to_csv('./datasets/kc_house_data/kc_house_data_y_classification_3_class.csv',encoding='utf-8',index=False)
-    
+    df.to_csv('./datasets/kc_house_data/kc_house_data_y_classification_2_class.csv',encoding='utf-8',index=False)
     
     '''
+    
 main()

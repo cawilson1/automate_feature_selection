@@ -48,7 +48,7 @@ def specifyDataset(XFile,yFile,mlAlg,numFeatures):#if featuresList is empty, by 
     emptyList = []
     start = time.time()
     num_cores = multiprocessing.cpu_count()
-    var = Parallel(n_jobs=num_cores)(delayed(singVarClassifier)(i,XFile,yFile,mlAlg,numFeatures) for i in range(len(loopLength[0])-11))
+    var = Parallel(n_jobs=num_cores)(delayed(singVarClassifier)(i,XFile,yFile,mlAlg,numFeatures) for i in range(len(loopLength[0])))
     end = time.time()
     print("time for parallel ", str(end-start))
     print('var is')
@@ -58,7 +58,7 @@ def specifyDataset(XFile,yFile,mlAlg,numFeatures):#if featuresList is empty, by 
   #  emptyList = []
       
     start = time.time()
-    for i in range(len(loopLength[0])-11):#there are 19 total features in standard X file
+    for i in range(len(loopLength[0])):#there are 19 total features in standard X file
         if i != 1 and i != 2:
             allX,allY,features = chooseFeatures([i], XFile,yFile)
             scores = getModelScores(mlAlg,allX,allY,10)

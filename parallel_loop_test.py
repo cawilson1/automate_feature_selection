@@ -18,3 +18,8 @@ print(num_cores)
 results = Parallel(n_jobs=num_cores)(delayed(processInput)(i,5) for i in inputs)
 #results = Parallel(n_jobs=num_cores)(for i in inputs: delayed(processInput(i)))
 print(results)
+
+
+    num_cores = multiprocessing.cpu_count()
+    var = Parallel(n_jobs=num_cores)(delayed(singVarClassifier)(i,XFile,yFile,mlAlg,numFeatures) for i in range(len(loopLength[0])))
+    emptyList.append(var)

@@ -65,7 +65,7 @@ def main():
         
         mlAlg = input[2]
         checkMLAlg(mlAlg)
-        XFile = './automate_feature_selection/datasets/' + input[3]
+        XFile = './datasets/' + input[3]
         yFile = './datasets/' + input[4]
         finalFeatureSetSize = input[5]#check that this is an int
         print('recursive feature elimination\n')
